@@ -18,8 +18,8 @@ INSERT INTO transfers (
 `
 
 type CreateTransferParams struct {
-	FromAccountID int64 `json:"fromAccountID"`
-	ToAccountID   int64 `json:"toAccountID"`
+	FromAccountID int64 `json:"from_account_id"`
+	ToAccountID   int64 `json:"to_account_id"`
 	Amount        int64 `json:"amount"`
 }
 
@@ -101,7 +101,7 @@ OFFSET $3
 `
 
 type ListTransfersFromAccountParams struct {
-	FromAccountID int64 `json:"fromAccountID"`
+	FromAccountID int64 `json:"from_account_id"`
 	Limit         int32 `json:"limit"`
 	Offset        int32 `json:"offset"`
 }
@@ -141,7 +141,7 @@ OFFSET $3
 `
 
 type ListTransfersToAccountParams struct {
-	ToAccountID int64 `json:"toAccountID"`
+	ToAccountID int64 `json:"to_account_id"`
 	Limit       int32 `json:"limit"`
 	Offset      int32 `json:"offset"`
 }
