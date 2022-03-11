@@ -30,7 +30,6 @@ func createRandomAccount(t *testing.T) Account {
 }
 
 func TestCreateAccount(t *testing.T) {
-	t.Parallel()
 	createRandomAccount(t)
 }
 
