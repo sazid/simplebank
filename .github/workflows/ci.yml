@@ -1,0 +1,23 @@
+name: ci-test
+
+# triggers
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+
+  test: # job name
+    runs-on: ubuntu-latest # a GitHub hosted runner
+    steps:
+    - uses: actions/checkout@v2 # a reusable action, created by GitHub
+
+    - name: Set up Go
+      uses: actions/setup-go@v2 # another reusable action
+      with:
+        go-version: 1.17
+
+    - name: Test
+      run: make test # a custom action where we're running custom commands
