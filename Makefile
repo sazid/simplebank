@@ -10,4 +10,7 @@ sqlc:
 test:
 	go test -v -cover -vet=all -parallel=4 ./...
 
-.PHONY: migrateup migratedown sqlc
+server:
+	go run main.go
+
+.PHONY: migrateup migratedown sqlc server
