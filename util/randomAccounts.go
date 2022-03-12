@@ -6,6 +6,10 @@ func RandomOwner() string {
 	return RandomString(6)
 }
 
+func RandomUsername() string {
+	return RandomString(5)
+}
+
 func RandomMoney() int64 {
 	return RandomInt(0, 1000)
 }

@@ -3,9 +3,12 @@ package api
 import (
 	"database/sql"
 	"errors"
+	"fmt"
+	"log"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"github.com/jackc/pgconn"
 	db "github.com/sazid/simplebank/db/sqlc"
 )
 
@@ -29,6 +32,22 @@ func (server *Server) createAccount(c *gin.Context) {
 
 	account, err := server.store.CreateAccount(c, arg)
 	if err != nil {
+		if pgErr, ok := err.(*pgconn.PgError); ok {
+			// https://www.postgresql.org/docs/11/errcodes-appendix.html
+			log.Println(pgErr)
+
+			var errResp error
+			switch pgErr.Code {
+			case "23503":
+				errResp = fmt.Errorf("user with the username '%s' does not exist", req.Owner)
+			case "23505":
+				errResp = fmt.Errorf("an account with the given username '%s' and currency '%s' already exists", req.Owner, req.Currency)
+			default:
+				errResp = fmt.Errorf("unknown database error")
+			}
+			c.JSON(http.StatusBadRequest, errorResponse(errResp))
+			return
+		}
 		c.JSON(http.StatusInternalServerError, errorResponse(err))
 		return
 	}
