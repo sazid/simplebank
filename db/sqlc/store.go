@@ -129,6 +129,11 @@ func addMoney(
 	if err != nil {
 		return
 	}
+	if account1.Balance < 0 {
+		err = fmt.Errorf("account1 balance cannot be negative after transfer: %d", account1.Balance)
+		return
+	}
+
 	account2, err = q.AddAccountBalance(ctx, AddAccountBalanceParams{
 		ID:     accountID2,
 		Amount: amount2,
@@ -136,5 +141,10 @@ func addMoney(
 	if err != nil {
 		return
 	}
+	if account2.Balance < 0 {
+		err = fmt.Errorf("account2 balance cannot be negative after transfer: %d", account2.Balance)
+		return
+	}
+
 	return
 }

@@ -4,11 +4,12 @@ package util
 const (
 	BDT = "BDT"
 	CAD = "CAD"
+	DHS = "DHS"
 )
 
 func IsSupportedCurrency(currency string) bool {
 	switch currency {
-	case BDT, CAD:
+	case BDT, CAD, DHS:
 		return true
 	}
 	return false
